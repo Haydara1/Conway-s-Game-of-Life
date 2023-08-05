@@ -5,7 +5,7 @@ namespace Conway_s_Game_of_Life
 {
     internal class Program
     {
-        const int FPS = 1;
+        const int FPS = 64;
 
         const int WIDTH = 64;
         const int HEIGHT = 64;
@@ -14,7 +14,7 @@ namespace Conway_s_Game_of_Life
 
         static void Main(string[] args)
         {
-            bool Start = false
+            bool Start = false;
 
             // Initializing the window.
             Raylib.InitWindow(WIDTH * SCALE, HEIGHT * SCALE, "Conway's Game of Life");
@@ -23,11 +23,6 @@ namespace Conway_s_Game_of_Life
             // Representing the screen within an array.
             bool[,] screen = new bool[WIDTH, HEIGHT];
 
-            //Test:
-            screen[20, 20] = true;
-            screen[20, 22] = true;
-            screen[20, 21] = true;
-
             // Main loop.
             while (!Raylib.WindowShouldClose())
             {
@@ -35,19 +30,20 @@ namespace Conway_s_Game_of_Life
                 Raylib.ClearBackground(Color.WHITE);
 
                 if (Start)
-                {
-                    Draw(screen);
                     screen = NextCycle(screen);
-                }
+                
                 else
-                {
-                    if(Raylib.IsMouseButtonPressed(0)) 
-                    {
+                {   
+                    if (Raylib.IsMouseButtonDown(MouseButton.MOUSE_RIGHT_BUTTON)) 
+                    {   
                         Vector2 pos = Raylib.GetMousePosition();
+                        int i = (int)Math.Floor(pos.X / SCALE);
+                        int j = (int)Math.Floor(pos.Y / SCALE);
+                        screen[i, j] = !screen[i, j];
                     }
                 }
-                
 
+                Draw(screen);
                 Raylib.EndDrawing();
             }
 
