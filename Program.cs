@@ -146,10 +146,10 @@ namespace Conway_s_Game_of_Life
             int i = (int)Math.Floor(pos.X / SCALE);
             int j = (int)Math.Floor(pos.Y / SCALE);
 
-            if (Raylib.IsMouseButtonDown(MouseButton.MOUSE_RIGHT_BUTTON) && (i > 0 && i < WIDTH && j > 0 && j < HEIGHT)) // Add pixels
+            if (Raylib.IsMouseButtonDown(MouseButton.MOUSE_BUTTON_LEFT) && (i > 0 && i < WIDTH && j > 0 && j < HEIGHT)) // Add pixels
                 screen[i, j] = true;
 
-            else if (Raylib.IsMouseButtonDown(MouseButton.MOUSE_BUTTON_LEFT)) // Delete pixels
+            else if (Raylib.IsMouseButtonDown(MouseButton.MOUSE_RIGHT_BUTTON)) // Delete pixels
                 screen[i, j] = false;
 
             else if (Raylib.IsKeyPressed(KeyboardKey.KEY_SPACE)) // Start the animation
@@ -196,9 +196,9 @@ namespace Conway_s_Game_of_Life
             Console.WriteLine("Esc                - Closes the simulation Window.");
             Console.WriteLine("F                  - Changes the simulation FPS.");
             Console.WriteLine("H                  - Prints this list.");
-            Console.WriteLine("Left mouse button  - Removes cells.");
+            Console.WriteLine("Left mouse button  - Adds cells.");
             Console.WriteLine("Right arrow        - Shows the next cycle.");
-            Console.WriteLine("Right mouse button - Adds cells.");
+            Console.WriteLine("Right mouse button - Removes cells.");
             Console.WriteLine("SPACE              - Starts the simulation.");
             Console.WriteLine("X                  - Stops the simulation.");
             Console.WriteLine("\n\n");
