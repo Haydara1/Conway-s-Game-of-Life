@@ -5,7 +5,8 @@ namespace Conway_s_Game_of_Life
 {
     internal class Program
     {
-        const int FPS = 64;
+        const int InFPS = 64;
+        const int OutFPS = 4;
 
         const int WIDTH = 64;
         const int HEIGHT = 64;
@@ -18,7 +19,7 @@ namespace Conway_s_Game_of_Life
 
             // Initializing the window.
             Raylib.InitWindow(WIDTH * SCALE, HEIGHT * SCALE, "Conway's Game of Life");
-            Raylib.SetTargetFPS(FPS);
+            Raylib.SetTargetFPS(InFPS);
 
             // Representing the screen within an array.
             bool[,] screen = new bool[WIDTH, HEIGHT];
@@ -32,15 +33,32 @@ namespace Conway_s_Game_of_Life
                 if (Start)
                     screen = NextCycle(screen);
                 
+
                 else
-                {   
-                    if (Raylib.IsMouseButtonDown(MouseButton.MOUSE_RIGHT_BUTTON)) 
-                    {   
-                        Vector2 pos = Raylib.GetMousePosition();
-                        int i = (int)Math.Floor(pos.X / SCALE);
-                        int j = (int)Math.Floor(pos.Y / SCALE);
-                        screen[i, j] = !screen[i, j];
+                {
+                    Vector2 pos = Raylib.GetMousePosition();
+                    int i = (int)Math.Floor(pos.X / SCALE);
+                    int j = (int)Math.Floor(pos.Y / SCALE);
+
+                    if (Raylib.IsMouseButtonDown(MouseButton.MOUSE_RIGHT_BUTTON))
+                        screen[i, j] = true;
+
+                    else if (Raylib.IsMouseButtonDown(MouseButton.MOUSE_BUTTON_LEFT))
+                        screen[i, j] = false;
+
+                    else if (Raylib.IsKeyPressed(KeyboardKey.KEY_SPACE))
+                    {
+                        Start = true;
+                        Raylib.SetTargetFPS(OutFPS);
                     }
+                    else if (Raylib.IsKeyPressed(KeyboardKey.KEY_X))
+                    {
+                        Start = false;
+                        Raylib.SetTargetFPS(InFPS);
+                    }
+                    else if (Raylib.IsKeyPressed(KeyboardKey.KEY_RIGHT) && Start == false)
+                        screen = NextCycle(screen);
+
                 }
 
                 Draw(screen);
