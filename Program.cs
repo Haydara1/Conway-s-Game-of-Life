@@ -45,6 +45,8 @@ namespace Conway_s_Game_of_Life
 
         static void Main(string[] args)
         {
+            Console.Title = "Conway's Game of life Console";
+
             // Start the application.
             Console.WriteLine("Welcome to Conway's game of life.");
             Console.Write("Enter the width of the window you want to work with (in pixels): ");
@@ -154,20 +156,52 @@ namespace Conway_s_Game_of_Life
             {
                 Start = true;
                 Raylib.SetTargetFPS(OutFPS);
+                Console.WriteLine("Animation is on.");
             }
 
-            else if (Raylib.IsKeyPressed(KeyboardKey.KEY_X)) // Stop the animation
+            else if (Raylib.IsKeyPressed(KeyboardKey.KEY_X) && Start == true) // Stop the animation
             {
                 Start = false;
                 Raylib.SetTargetFPS(InFPS);
-
+                Console.WriteLine("Animation is off.");
             }
 
             else if (Raylib.IsKeyPressed(KeyboardKey.KEY_RIGHT) && Start == false) // Proceed to the next cycle
                 screen = NextCycle(screen);
 
+            else if (Raylib.IsKeyPressed(KeyboardKey.KEY_ESCAPE))
+                Environment.Exit(0);
+
+            else if (Raylib.IsKeyPressed(KeyboardKey.KEY_H))
+                PrintCommands();
+
+            else if (Raylib.IsKeyPressed(KeyboardKey.KEY_F))
+            {
+                Start = false;
+                Console.WriteLine("Animation is off.");
+                Console.Write("Enter the new simulation FPS: ");
+                OutFPS = Convert.ToInt32(Console.ReadLine());
+            }
+
+            else if (Raylib.IsKeyPressed(KeyboardKey.KEY_C))
+                screen = new bool[WIDTH, HEIGHT];
 
             return screen;
+        }
+
+        static void PrintCommands()
+        {
+            Console.WriteLine("\n\n");
+            Console.WriteLine("C                  - Clears the grid."); 
+            Console.WriteLine("Esc                - Closes the simulation Window.");
+            Console.WriteLine("F                  - Changes the simulation FPS.");
+            Console.WriteLine("H                  - Prints this list.");
+            Console.WriteLine("Left mouse button  - Removes cells.");
+            Console.WriteLine("Right arrow        - Shows the next cycle.");
+            Console.WriteLine("Right mouse button - Adds cells.");
+            Console.WriteLine("SPACE              - Starts the simulation.");
+            Console.WriteLine("X                  - Stops the simulation.");
+            Console.WriteLine("\n\n");
         }
     }
 }
