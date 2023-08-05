@@ -45,7 +45,11 @@ namespace Conway_s_Game_of_Life
 
         static void Main(string[] args)
         {
+            Image icon = Raylib.LoadImage("C:\\Users\\hayda\\source\\repos\\Conway's Game of Life\\icon.png");
+            Console.Clear();
+
             Console.Title = "Conway's Game of life Console";
+            Raylib.SetWindowIcon(icon);
 
             // Start the application.
             Console.WriteLine("Welcome to Conway's game of life.");
