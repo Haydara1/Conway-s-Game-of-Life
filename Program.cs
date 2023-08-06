@@ -21,7 +21,7 @@ namespace Conway_s_Game_of_Life
 
         static public int OutFPS
         {
-            get { return ofps = 4; }
+            get { return ofps; }
             set { ofps = value; }
         }
 
